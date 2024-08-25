@@ -1,0 +1,53 @@
+from graphviz import Digraph
+
+# Crear un objeto Digraph
+dot = Digraph()
+
+# Agregar nodos
+dot.node('Inicio', 'Inicio')
+dot.node('Seleccion', 'Selección del Sustrato')
+dot.node('Limpio', '¿El sustrato está limpio?')
+dot.node('Tamaño', 'Tamaño del Sustrato')
+dot.node('Cortar', '¿El sustrato necesita ser cortado o picado?')
+dot.node('Picar', 'Picar o triturar el sustrato')
+dot.node('Humedecimiento', 'Humedecimiento del Sustrato')
+dot.node('Humedad', '¿Humedad adecuada?')
+dot.node('Pasteurizacion', 'Pasteurización o Esterilización')
+dot.node('Necesita', '¿Necesita pasteurización?')
+dot.node('Aplicar', 'Aplicar método adecuado')
+dot.node('Enfriamiento', 'Enfriamiento del Sustrato')
+dot.node('HumedadFinal', '¿Humedad adecuada después del enfriamiento?')
+dot.node('Envasado', 'Envasado del Sustrato')
+dot.node('Verificacion', 'Verificación Final')
+dot.node('Fin', 'Fin')
+
+# Agregar aristas (flechas) entre los nodos
+dot.edge('Inicio', 'Seleccion')
+dot.edge('Seleccion', 'Limpio')
+dot.edge('Limpio', 'Tamaño', label='Sí')
+dot.edge('Limpio', 'Realizar limpieza previa', label='No')
+dot.edge('Realizar limpieza previa', 'Seleccion')
+dot.edge('Tamaño', 'Cortar')
+dot.edge('Cortar', 'Picar', label='Sí')
+dot.edge('Cortar', 'Humedecimiento', label='No')
+dot.edge('Picar', 'Humedecimiento')
+dot.edge('Humedecimiento', 'Humedad')
+dot.edge('Humedad', 'Pasteurizacion', label='Sí')
+dot.edge('Humedad', 'Ajustar agua', label='No')
+dot.edge('Ajustar agua', 'Humedad')
+dot.edge('Pasteurizacion', 'Necesita')
+dot.edge('Necesita', 'Aplicar', label='Sí')
+dot.edge('Necesita', 'Enfriamiento', label='No')
+dot.edge('Aplicar', 'Enfriamiento')
+dot.edge('Enfriamiento', 'HumedadFinal')
+dot.edge('HumedadFinal', 'Envasado', label='Sí')
+dot.edge('HumedadFinal', 'Ajustar humedad', label='No')
+dot.edge('Ajustar humedad', 'HumedadFinal')
+dot.edge('Envasado', 'Verificacion')
+dot.edge('Verificacion', 'Fin')
+
+# Renderizar y guardar el diagrama en formato PDF
+dot.render('diagrama_flujo', format='pdf')
+
+print("Diagrama de flujo creado y guardado como diagrama_flujo.pdf")
+
